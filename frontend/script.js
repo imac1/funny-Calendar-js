@@ -1,6 +1,6 @@
 function dayComponent(day) {
 	return `
-    <div class="day border p-8">
+    <div class="day border p-8 max-sm:p-2 max-md:p-4 max-lg:p-6">
       ${day}
     </div>
   `;
@@ -18,9 +18,11 @@ function monthComponent(monthName, monthShort, monthLength, startingDay) {
 	return `
     <section class="flex flex-col items-center min-w-[1000px] bg-gradient-to-r from-red-500 to-red-300
       hover:bg-gradient-to-l hover:from-red-500 hover:to-red-300 transition-all ease-in-out delay-700
-      border shadow-lg rounded-md p-6 month ${monthShort}">
-      <h2 class="text-9xl -rotate-12 drop-shadow-lg text-white font-bold">${monthName}</h2>
-      <div class="grid grid-cols-7 gap-4 border mt-12">
+      border shadow-lg rounded-md p-6 month mb-8 ${monthShort}">
+      <h2 class="text-9xl -rotate-12 drop-shadow-lg 
+	  text-white font-bold hover:tracking-in-expand
+	  max-sm:text-[70px] max-md:text-[100px]">${monthName}</h2>
+      <div class="grid grid-cols-7 gap-2 border mt-12 p-2">
         <div class="empty-day"></div>
         <div class="empty-day"></div>
         <div class="empty-day"></div>
@@ -68,10 +70,11 @@ function getMonthData(year) {
 
 function clickDay() {
 	const days = document.getElementsByClassName("day");
-	days[0].addEventListener("click", () => {
-			days[0].classList.toggle('bg-green-300')
+	for (let i = 0; i < days.length; i++) {
+		days[i].addEventListener("click", () => {
+			days[i].classList.toggle('bg-green-300')
 		} )
-	
+	}
 }
 
 function loadEvent() {
