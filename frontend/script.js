@@ -6,7 +6,7 @@ function dayComponent(day) {
   `;
 }
 
-function monthComponent(monthName, monthShort, monthLength, startingDay) {
+function monthComponent(monthName, monthShort, monthLength, startingDay, bg) {
 	const emptyDays = Array.from(
 		{ length: startingDay },
 		(_) => '<div class="empty-day"></div>'
@@ -16,9 +16,9 @@ function monthComponent(monthName, monthShort, monthLength, startingDay) {
 	).join("");
 
 	return `
-    <section class="flex flex-col items-center min-w-[1000px] bg-gradient-to-r from-red-500 to-red-300
-      hover:bg-gradient-to-l hover:from-red-500 hover:to-red-300 transition-all ease-in-out delay-700
-      border shadow-lg rounded-md p-6 month mb-8 ${monthShort}">
+    <section class="flex flex-col items-center min-w-[1000px] 
+
+      border shadow-lg rounded-md p-6 month mb-8 ${monthShort} ${bg}">
       <h2 class="text-9xl -rotate-12 drop-shadow-lg 
 	  text-white font-bold hover:tracking-in-expand
 	  max-sm:text-[70px] max-md:text-[100px]">${monthName}</h2>
@@ -35,6 +35,12 @@ function monthComponent(monthName, monthShort, monthLength, startingDay) {
       </div>
     </section>
   `;
+}
+
+function generateRandomColor() {
+	const colors = ['bg-slate-500', 'bg-amber-500', 'bg-emerald-500', 'bg-pink-500', 'bg-rose-500', 'bg-yellow-500', 'bg-lime-500', 'bg-orange-500']
+	const randomColor = colors[Math.floor(Math.random() * colors.length)]
+	return randomColor
 }
 
 function getMonthData(year) {
@@ -56,12 +62,15 @@ function getMonthData(year) {
 		});
 		const monthLength = new Date(year, month + 1, 0).getDate();
 		const startingDay = new Date(year, month, 1).getDay(); // Get the starting day of the month (0 - Sunday, 6 - Saturday)
+		const bg = generateRandomColor();
 
 		monthsData.push({
 			monthName,
 			monthShort,
 			monthLength,
 			startingDay,
+			bg
+			
 		});
 	}
 
@@ -72,27 +81,35 @@ function clickDay() {
 	const days = document.getElementsByClassName("day");
 	for (let i = 0; i < days.length; i++) {
 		days[i].addEventListener("click", () => {
-			days[i].classList.toggle('bg-green-300')
+			
+			days[i].classList.toggle('bg-green-500');
 		} )
 	}
 }
+
+
 
 function loadEvent() {
 	const rootElement = document.getElementById("root");
 	const currentYear = new Date().getFullYear();
 	const monthsData = getMonthData(currentYear);
+	
 
 	monthsData.forEach((month) => {
 		const monthMarkup = monthComponent(
 			month.monthName,
 			month.monthShort,
 			month.monthLength,
-			month.startingDay
+			month.startingDay,
+			month.bg
+		
 		);
 		rootElement.insertAdjacentHTML("beforeend", monthMarkup);
 	});
 
 	clickDay();
+	
+	
 }
 
 window.addEventListener("load", loadEvent);

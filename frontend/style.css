@@ -1,21 +1,13 @@
-/* body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+body {
+  font-family: 'Poppins', sans-serif;
+                                                
    
-  } */
-  
-  /* section {
-    display: flex;
-    flex-direction: column;
-    min-width: 900px;
-    width: 100%;
-    border: 1px solid #000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    align-items: center;
-    justify-content: center;
-    background-color: red;
+  }
+
+  /* .Jan .day,
+  .Feb .day{
+    background-color: aliceblue;
+
   } */
   .animated-title {
     transition: transform 0.3s ease-in-out;
